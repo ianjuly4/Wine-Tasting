@@ -1,8 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import WineTasting from "./WineTasting";
+
+
 
 function App() {
-  return <h1>Project Client</h1>;
+  return (
+    <h1 className="text-3xl font-bold underline">
+      <WineTasting/>
+    </h1>
+  )
 }
-
 export default App;
