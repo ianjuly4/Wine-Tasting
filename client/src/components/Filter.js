@@ -4,7 +4,7 @@ import React from "react"
 function Filter({handleTypeChange, 
   handlePriceChange, 
   onSearchChange, 
-  search}){
+  searchWineName}){
 
   const handleChange = (e) => {
     onSearchChange(e.target.value)

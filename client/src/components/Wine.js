@@ -3,13 +3,14 @@ import React from "react"
 function Wine({name, image, location, price, handleDelete, type, star_review, wine}){
 
   const handleDeleteClick = () =>{
-    fetch(`http://127.0.0.1:5000/wines/${wine.id}`,{
+    fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
       method: "DELETE"
   })
   .then((r)=>r.json())
   .then(()=>handleDelete("My bad, thought you really liked that one"))
   window.location.reload()
   }
+  
   
   return (
       <li className="Wine">
@@ -21,6 +22,7 @@ function Wine({name, image, location, price, handleDelete, type, star_review, wi
         <h5>Star Review: {star_review}</h5>
         <button className="Remove" 
         onClick={handleDeleteClick}>REMOVE</button>
+        
       </li>
     );
 }  

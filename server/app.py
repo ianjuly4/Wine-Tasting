@@ -6,6 +6,10 @@
 from flask import Flask, jsonify, make_response, request
 from flask_migrate import Migrate
 from flask_restful import Api, Resource
+from flask import Flask
+from flask_cors import CORS
+
+
 
 from config import app, db, api
 from models import Wine, Review, User
@@ -17,6 +21,7 @@ app.json.compact = True
 migrate = Migrate(app, db)
 db.init_app(app)
 api = Api(app)
+CORS(app)
 
 class Home(Resource):
 

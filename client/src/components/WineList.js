@@ -6,23 +6,19 @@ import Filter from "./Filter"
 
 function WineList(){
   const [wines, setWines] = useState([])
+  const [wineName, setWineName] = useState("")
+  const [selectedType, setSelectedType] = useState("All")
+  const [selectedPrice, setSelectedPrice] = useState("All")
+
 
    useEffect(() =>{
-      fetch("http://127.0.0.1:5000/wines",{
+      fetch("wines",{
         method: "GET"
     })
     .then((r)=>r.json())
     .then((WineData)=>setWines(WineData))
     })
-    const handleTypeChange = (e) => {
-      setSelectedType(e.target.value)
-    }
-    const handlePriceChange = (e) => {
-      setSelectedPrice(e.target.value)
-    }
-    const onSearchChange = (text) => {
-      setRestaurantText(text)
-    }
+
     const handleDelete = (clickedDelete) => {
       const updatedWines = wines.filter((wine)=>{
        return wine.id !== clickedDelete.id;
@@ -30,12 +26,23 @@ function WineList(){
       })
     }
   
+    const filteredwines = wines.filter((wine)=>{
+      if(selectedPrice  === "All") return true;
+      return wine.price === selectedPrice
+    }).filter((wine)=>{
+      if(selectedType === "All")return true;
+      return wine.type === selectedType
+    }).filter((wine)=>{
+      return wine.name.toLowerCase().includes(wineName.toLowerCase())
+    })
+
   return(
   <div className="WineList">
   <>
     <Header/>
-    <Filter/>
-    <ul>{wines.map((wine)=>{
+   
+
+    <ul>{filteredwines.map((wine)=>{
       return <Wine key={wine.id}
       name={wine.name} 
       location={wine.location}
