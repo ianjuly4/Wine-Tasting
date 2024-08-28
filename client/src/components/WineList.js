@@ -7,8 +7,8 @@ import Filter from "./Filter"
 function WineList(){
   const [wines, setWines] = useState([])
   const [wineName, setWineName] = useState("")
-  const [selectedType, setSelectedType] = useState("All")
-  const [selectedPrice, setSelectedPrice] = useState("All")
+  const [wineType, setWineType] = useState("")
+  const [winePrice, setWinePrice] = useState("All")
 
 
    useEffect(() =>{
@@ -19,6 +19,13 @@ function WineList(){
     .then((WineData)=>setWines(WineData))
     })
 
+    const onSearchWineNameChange = (text) => {
+      setWineName(text)
+    }
+    const onSearchWineTypeChange = (text) => {
+      setWineType(text)
+    }
+  
     const handleDelete = (clickedDelete) => {
       const updatedWines = wines.filter((wine)=>{
        return wine.id !== clickedDelete.id;
@@ -27,11 +34,10 @@ function WineList(){
     }
   
     const filteredwines = wines.filter((wine)=>{
-      if(selectedPrice  === "All") return true;
-      return wine.price === selectedPrice
+      if(winePrice  === "All") return true;
+      return wine.price === winePrice
     }).filter((wine)=>{
-      if(selectedType === "All")return true;
-      return wine.type === selectedType
+      return wine.type.toLowerCase().includes(wineType.toLowerCase())
     }).filter((wine)=>{
       return wine.name.toLowerCase().includes(wineName.toLowerCase())
     })
@@ -40,8 +46,13 @@ function WineList(){
   <div className="WineList">
   <>
     <Header/>
-   
+    <Filter 
+      onSearchWineTypeChange={onSearchWineTypeChange}
+      onSearchWineNameChange={onSearchWineNameChange}
+      searchWineName={wineName}
+      searchWineType={wineType}
 
+      />
     <ul>{filteredwines.map((wine)=>{
       return <Wine key={wine.id}
       name={wine.name} 
