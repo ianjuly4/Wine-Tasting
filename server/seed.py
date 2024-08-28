@@ -7,7 +7,7 @@ from random import randint, choice as rc
 from faker import Faker
 
 # Local imports
-from app import app
+from app import app, db
 from models import db, Wine, Review, User
 
 if __name__ == '__main__':
@@ -15,9 +15,12 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
         # Seed code goes here!
+        Wine.query.delete()
+        Review.query.delete()
+        User.query.delete()
 
         wines = []
-        wines.append(Wine(name = 'Educated Guess', type='Cabernet Sauvignon', flavor_profile='Dark and Robust', location = 'Divino', price=20))
+        wines.append(Wine(name = 'Educated Guess', type='Cabernet Sauvignon', flavor_profile='Dark and Robust', location = 'Divino', price=20, image='https://www.totalwine.com/wine/red-wine/cabernet-sauvignon/educated-guess-cabernet-napa/p/108208750'))
 
         reviews = []
         reviews.append(Review(star_review= 3, comment="I liked that it was dark and robust, but didnt think it was worth $20", wine_id = 1, user_id = 1))
@@ -31,3 +34,5 @@ if __name__ == '__main__':
 
 
         db.session.commit()
+
+        

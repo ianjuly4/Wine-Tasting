@@ -1,5 +1,8 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import validates
+db = SQLAlchemy()
 
 from config import db
 
@@ -16,11 +19,20 @@ class Wine(db.Model, SerializerMixin):
     flavor_profile = db.Column(db.String)
     location = db.Column(db. String)
     price = db.Column(db.Integer)
+    image = db.Column(db.String)
 
     reviews = db.relationship('Review', back_populates='wine', cascade='all, delete-orphan')
 
     users = association_proxy('reviews', 'user',
                                  creator=lambda user_obj: Review(user=user_obj))
+    
+    @validates('', 'backup_email')
+    def validate_email(self, key, address):
+        if '@' not in address:
+            raise ValueError("Failed simple email validation")
+        return address
+
+    
 
 class Review(db.Model, SerializerMixin):
     __tablename__ = 'reviews'
