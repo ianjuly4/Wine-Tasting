@@ -1,6 +1,6 @@
 import React from "react"
 
-function Wine({name, image, location, price, handleDelete, type, star_review, wine}){
+function Wine({name,location, price, handleDelete, type, star_review, wine, image}){
 
   const handleDeleteClick = () =>{
     fetch(`http://127.0.0.1:5555/wines/${wine.id}`,{
@@ -15,7 +15,7 @@ function Wine({name, image, location, price, handleDelete, type, star_review, wi
   return (
       <li className="Wine">
         <h3>{name}</h3>
-        <h5>{image}</h5>
+  
         <h5>{location}</h5>
         <h5>Type: {type}</h5>
         <h5>Price: {price}</h5>

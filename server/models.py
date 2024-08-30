@@ -26,11 +26,7 @@ class Wine(db.Model, SerializerMixin):
     users = association_proxy('reviews', 'user',
                                  creator=lambda user_obj: Review(user=user_obj))
     
-    @validates('', 'backup_email')
-    def validate_email(self, key, address):
-        if '@' not in address:
-            raise ValueError("Failed simple email validation")
-        return address
+
 
     
 

@@ -12,7 +12,7 @@ function WineList(){
 
 
    useEffect(() =>{
-      fetch("wines",{
+      fetch("http://127.0.0.1:5555/wines",{
         method: "GET"
     })
     .then((r)=>r.json())
@@ -56,6 +56,7 @@ function WineList(){
     <ul>{filteredwines.map((wine)=>{
       return <Wine key={wine.id}
       name={wine.name} 
+      image={wine.image}
       location={wine.location}
       type={wine.type}
       price={wine.price}
